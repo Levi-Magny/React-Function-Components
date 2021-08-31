@@ -1,13 +1,13 @@
-import { Fragment } from 'react';
 import FormularioCadastro from './components/FormularioCadastro/FormularioCadastro';
+import { Container, Typography } from '@material-ui/core';
 import './App.css';
 
 function App() {
   return (
-    <Fragment>
-      <h1>Formulario de Cadastro</h1>
+    <Container component="article" maxWidth="sm">
+      <Typography variant="h3" component="h1" align="center">Formulario de Cadastro</Typography>
       <FormularioCadastro/>
-    </Fragment>
+    </Container>
   );
 }
 
