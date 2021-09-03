@@ -10,6 +10,7 @@ function DadosDeEntrega(){
                 label="CEP"
                 variant="outlined"
                 margin="normal"
+                required
             />
             <TextField
                 id="endereco"
@@ -18,6 +19,7 @@ function DadosDeEntrega(){
                 variant="outlined"
                 margin="normal"
                 fullWidth
+                required
             />
             <TextField
                 id="numero"
@@ -25,6 +27,7 @@ function DadosDeEntrega(){
                 label="Número"
                 variant="outlined"
                 margin="normal"
+                required
             />
             <TextField
                 id="estado"
@@ -32,6 +35,7 @@ function DadosDeEntrega(){
                 label="Estado"
                 variant="outlined"
                 margin="normal"
+                required
             />
             <TextField
                 id="cidade"
@@ -39,6 +43,7 @@ function DadosDeEntrega(){
                 label="Cidade"
                 variant="outlined"
                 margin="normal"
+                required
             />
             <Button
                 type="submit"

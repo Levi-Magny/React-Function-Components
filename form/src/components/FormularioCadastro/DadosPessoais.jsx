@@ -22,7 +22,8 @@ function DadosPessoais({aoEnviar, validacaoCPF}) {
                 id="nome"
                 label="Nome"
                 variant="outlined"
-                margin="normal" 
+                margin="normal"
+                required 
                 fullWidth
                 value={nome}
                 onChange={(event) =>{
@@ -37,6 +38,7 @@ function DadosPessoais({aoEnviar, validacaoCPF}) {
                 label="Sobrenome"
                 variant="outlined"
                 margin="normal"
+                required
                 fullWidth
                 value={sobrenome}
                 onChange={(event) =>{
@@ -56,6 +58,7 @@ function DadosPessoais({aoEnviar, validacaoCPF}) {
                 label="CPF"
                 variant="outlined"
                 margin="normal"
+                required
                 fullWidth
                 value={cpf}
                 onChange={(event) =>{
