@@ -15,7 +15,7 @@ function DadosPessoais({aoEnviar, validacaoCPF}) {
         <form
             onSubmit={event =>{
                 event.preventDefault();
-                aoEnviar({nome, sobrenome, cpf, promocoes, novidades});
+                aoEnviar(1);
             }}
         >
             <TextField
@@ -100,6 +100,17 @@ function DadosPessoais({aoEnviar, validacaoCPF}) {
                 }
                 label="Novidades"
             />
+
+            <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                onClick={()=>{
+                    aoEnviar(0)
+                }}
+            >
+                Anterior
+            </Button>
 
             <Button
                 type="submit"

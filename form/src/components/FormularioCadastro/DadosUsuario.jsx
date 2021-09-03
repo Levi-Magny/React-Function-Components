@@ -6,7 +6,7 @@ function DadosUsuario({aoEnviar}){
         <form
             onSubmit={(event) => {
                 event.preventDefault();
-                aoEnviar();
+                aoEnviar(1);
             }}
         >
             <TextField
