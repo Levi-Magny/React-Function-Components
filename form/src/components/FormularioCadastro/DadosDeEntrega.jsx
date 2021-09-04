@@ -1,21 +1,37 @@
-import React, { useState } from 'react';
-import {TextField, Button} from '@material-ui/core'
+import React, { useContext, useState } from 'react';
+import { TextField, Button } from '@material-ui/core'
+import ValidacoesCadastro from '../../context/ValidacoesCadastro';
 
-function DadosDeEntrega({aoEnviar}){
+function DadosDeEntrega({ aoEnviar }) {
     const [cep, setCep] = useState("");
     const [endereco, setEndereco] = useState("");
     const [numero, setNumero] = useState("");
     const [estado, setEstado] = useState("");
     const [cidade, setCidade] = useState("");
-    return(
+    const [erro, setErro] = useState({cep:{valido: true, texto: ""}})
+
+    const validacoes = useContext(ValidacoesCadastro);
+
+    function validarCampos(event){
+        const {name, value} = event.target;
+        const novoEstado = {...erro};
+        novoEstado[name] = validacoes[name](value);
+        setErro(novoEstado);
+    }
+
+    return (
         <form
-        onSubmit={event => {
-            event.preventDefault();
-            aoEnviar({cep, endereco, numero, estado, cidade});
-        }}
+            onSubmit={event => {
+                event.preventDefault();
+                aoEnviar({ cep, endereco, numero, estado, cidade });
+            }}
         >
             <TextField
+                error={!erro.cep.valido}
+                helperText={erro.cep.texto}
+                onBlur={validarCampos}
                 id="cep"
+                name="cep"
                 type="number"
                 label="CEP"
                 variant="outlined"

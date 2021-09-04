@@ -1,18 +1,46 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
+import ValidacoesCadastro from '../../context/ValidacoesCadastro';
 
-function DadosUsuario({aoEnviar}){
+function DadosUsuario({ aoEnviar }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    return(
+    const [buttondisabled, setButtonDisabled] = useState(false);
+    const [erro, setErro] = useState({ senha: { valido: true, texto: "" }, email: { valido: true, texto: "" } })
+
+    const validacoes = useContext(ValidacoesCadastro);
+    function validarCampos(event) {
+        const { name, value } = event.target;
+        const novoEstado = { ...erro } // fragmenta o array com o spread operator
+        novoEstado[name] = validacoes[name](value); // atualiza ou cria o erro
+        setButtonDisabled(!novoEstado[name].valido);
+        setErro(novoEstado); // seta o novo erro
+    }
+
+    function possoEnviar() {
+        for (let campo in erro) {
+            if (!erro[campo].valido) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    return (
         <form
             onSubmit={(event) => {
                 event.preventDefault();
-                aoEnviar({email, senha});
+                if (possoEnviar()) {
+                    aoEnviar({ email, senha });
+                }
             }}
         >
             <TextField
+                error={!erro.email.valido}
+                helperText={erro.email.texto}
+                onBlur={validarCampos}
                 type="email"
+                name="email"
                 label="email"
                 variant="outlined"
                 id="email"
@@ -25,8 +53,12 @@ function DadosUsuario({aoEnviar}){
                 }}
             />
             <TextField
+                error={!erro.senha.valido}
+                helperText={erro.senha.texto}
+                onBlur={validarCampos}
                 type="password"
                 label="Senha"
+                name="senha"
                 variant="outlined"
                 required
                 id="senha"
@@ -41,6 +73,7 @@ function DadosUsuario({aoEnviar}){
                 type="submit"
                 color="primary"
                 variant="contained"
+                disabled={buttondisabled}
             >Próximo</Button>
         </form>
     );

@@ -1,27 +1,27 @@
 import { Step, StepLabel, Stepper, Typography } from '@material-ui/core';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import DadosDeEntrega from './DadosDeEntrega';
 import DadosPessoais from './DadosPessoais';
 import DadosUsuario from './DadosUsuario';
 
-function FormularioCadastro({aoEnviar, validacaoCPF}){
+function FormularioCadastro({ aoEnviar, validacoes }) {
     const [etapaAtual, setEtapaAtual] = useState(0);
     const [dadosColetados, setDados] = useState({});
 
-    useEffect(()=>{
-        if(etapaAtual === formularios.length - 1)
+    useEffect(() => {
+        if (etapaAtual === formularios.length - 1)
             aoEnviar(dadosColetados);
     })
 
     const formularios = [
         <DadosUsuario aoEnviar={coletarDados}/>,
-        <DadosPessoais aoEnviar={coletarDados} validacaoCPF={validacaoCPF}/>,
+        <DadosPessoais aoEnviar={coletarDados}/>,
         <DadosDeEntrega aoEnviar={coletarDados}/>,
         <Typography>Obrigado pelo cadastro!</Typography>
     ];
 
-    function coletarDados(dados){
-        setDados({...dadosColetados, ...dados});
+    function coletarDados(dados) {
+        setDados({ ...dadosColetados, ...dados });
         proximo();
     }
 
@@ -29,11 +29,11 @@ function FormularioCadastro({aoEnviar, validacaoCPF}){
      * 
      * @param {Int} direction If 0, we go to the previous form. Else, we go to the next.
      */
-    function proximo(){
+    function proximo() {
         setEtapaAtual(etapaAtual + 1);
     }
 
-    return(
+    return (
         <>
             <Stepper activeStep={etapaAtual}>
                 <Step><StepLabel>Login</StepLabel></Step>
