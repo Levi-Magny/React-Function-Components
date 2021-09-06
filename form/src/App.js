@@ -1,6 +1,6 @@
 import FormularioCadastro from './components/FormularioCadastro/FormularioCadastro';
 import { Container, Typography } from '@material-ui/core';
-import { validarCPF, validarInputs, validarSenha } from './models/cadastro';
+import { validarCPF, validarSenha, validarInputs } from './models/cadastro';
 import ValidacoesCadastro from './context/ValidacoesCadastro';
 import './App.css';
 
@@ -13,10 +13,10 @@ function App() {
         value={{
           cpf: validarCPF,
           senha: validarSenha,
+          name: validarInputs,
+          cep: validarInputs,
           email: validarInputs,
-          nome: validarInputs,
-          cidade: validarInputs,
-          cep: validarInputs
+          cidade: validarInputs
         }}
       >
         <FormularioCadastro aoEnviar={aoEnviar} />

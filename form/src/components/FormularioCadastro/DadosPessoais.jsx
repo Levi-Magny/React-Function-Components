@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { Button, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import ValidacoesCadastro from '../../context/ValidacoesCadastro';
+import useErros from '../../hooks/useErros';
 
 function DadosPessoais({ aoEnviar }) {
     const [nome, setNome] = useState("");
@@ -9,17 +10,8 @@ function DadosPessoais({ aoEnviar }) {
     const [cpf, setCPF] = useState("");
     const [promocoes, setPromocoes] = useState(true);
     const [novidades, setNovidades] = useState(false);
-
-    const [erro, setErro] = useState({ cpf: { valido: true, texto: "" } })
-
     const validacoes = useContext(ValidacoesCadastro);
-
-    function validarCampos(event) {
-        const { name, value } = event.target;
-        const novoEstado = { ...erro } // fragmenta o array com o spread operator
-        novoEstado[name] = validacoes[name](value); // atualiza ou cria o erro
-        setErro(novoEstado); // seta o novo erro
-    }
+    const [erro, validarCampos] = useErros(validacoes);
 
     return (
         <form

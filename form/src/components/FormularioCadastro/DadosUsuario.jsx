@@ -1,30 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import ValidacoesCadastro from '../../context/ValidacoesCadastro';
+import useErros from '../../hooks/useErros';
 
 function DadosUsuario({ aoEnviar }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    const [buttondisabled, setButtonDisabled] = useState(false);
-    const [erro, setErro] = useState({ senha: { valido: true, texto: "" }, email: { valido: true, texto: "" } })
-
     const validacoes = useContext(ValidacoesCadastro);
-    function validarCampos(event) {
-        const { name, value } = event.target;
-        const novoEstado = { ...erro } // fragmenta o array com o spread operator
-        novoEstado[name] = validacoes[name](value); // atualiza ou cria o erro
-        setButtonDisabled(!novoEstado[name].valido);
-        setErro(novoEstado); // seta o novo erro
-    }
-
-    function possoEnviar() {
-        for (let campo in erro) {
-            if (!erro[campo].valido) {
-                return false;
-            }
-        }
-        return true;
-    }
+    const [erro, validarCampos, possoEnviar] = useErros(validacoes);
 
     return (
         <form
@@ -73,7 +56,6 @@ function DadosUsuario({ aoEnviar }) {
                 type="submit"
                 color="primary"
                 variant="contained"
-                disabled={buttondisabled}
             >Próximo</Button>
         </form>
     );
